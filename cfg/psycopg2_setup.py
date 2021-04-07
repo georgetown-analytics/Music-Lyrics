@@ -1,3 +1,5 @@
+# Deadend.  This was for when we were using RDS.  We moved to a simpilier solution, S3 buckets.  It's like freshbaked bread.  
+
 import psycopg2 as ps
 # define credentials 
 
@@ -14,4 +16,3 @@ conn = ps.connect(host=credentials['POSTGRES_ADDRESS'],
                   port=credentials['POSTGRES_PORT'])
 
 cur = conn.cursor()
-
