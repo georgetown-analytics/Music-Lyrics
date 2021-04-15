@@ -8,7 +8,7 @@ import io
 import boto3
 
 import s3fs
-fs = s3fs.S3FileSystem(anon=False,key='AKIASQCX6MEBOZF7WCYA',secret='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')
+fs = s3fs.S3FileSystem(anon=False,key='#####',secret='######')
 
 from dotenv import load_dotenv
 load_dotenv(verbose=True)
