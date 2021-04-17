@@ -89,10 +89,12 @@ lyrics3_df[lyrics3_df.duplicated(keep = False)]
 merged_genre_df = pd.merge(lyrics3_df,genres2_df,on = 'artist_name') 
 
 """Strip the ' / ' from 'singer_name', so we can pd.merge later (?) """
-merged2_df.replace('(/)','',regex=True, inplace = True) 
+"""This is where it went wrong before!  I put in the wrong df for the replace command"""
+## BAD CODING! BAD! merged2_df.replace('(/)','',regex=True, inplace = True) 
+merged_genre_df['artist_name'].replace('(/)','',regex=True, inplace = True)
 
 """ NExt need to add a column for the orginal.csv name"""
-merged2_genre_df = pd.DataFrame((merged_genre_df), columns = ['original_csv','artist_name','song_name','link','lyrics','language','genre'])
+merged2_genre_df = pd.DataFrame((merged_genre_df), columns = ['original_csv','artist_name','song_name','link','lyrics','language','genre','date'])
 merged2_genre_df['original_csv'] = 'genres_csv'
 
 """Write the dataframe to a csv.  First round I did it in a notebook, with no
@@ -100,9 +102,9 @@ path.  Locked it all up!!!!"""
 """SO.  WHen you use df.to_csv, Need to give it a path, a landing spot...
 I went to command line
 >>touch merged2_genre_df.csv"""
-merged2_genre_df.to_csv('merged2_genre_df.csv', index=False)
+merged2_genre_df.to_csv('merged3_genre_df.csv', index=False)
 """ send the merged file, cleaned up, converted to csv file to AWS S3"""
-upload_file_to_bucket('music-demo-lyrics','merged2_genre_df.csv')
+upload_file_to_bucket('[TBD]','merged3_genre_df.csv')
 
 
 

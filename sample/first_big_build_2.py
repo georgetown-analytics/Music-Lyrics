@@ -8,7 +8,7 @@ import io
 import boto3
 
 import s3fs
-fs = s3fs.S3FileSystem(anon=False,key='#####',secret='######')
+fs = s3fs.S3FileSystem(anon=False,key='#######',secret='#######')
 
 from dotenv import load_dotenv
 load_dotenv(verbose=True)
@@ -48,17 +48,14 @@ def download_file_from_bucket(bucket_name, s3_key, dst_path):
 ## with open('short_name.csv') as fo:
     ## print(fo.read())
 
-genre_df = pd.read_csv('s3://music-lyrics/merged2_genre_df.csv')
-decades_df = pd.read_csv('s3://music-lyrics/decades3_df.csv')
+genre_df = pd.read_csv('s3://wrangled-1/merged3_genre_df.csv')
+decades_df = pd.read_csv('s3://wrangled-1/decades_df.csv')
 
 big_df = pd.concat([genre_df, decades_df]).reset_index(drop = True)
 
-big_df['artist_name'].replace('(/)','',regex=True, inplace = True) 
- """ 37K repeats on artist / song.  61k repeats on lyrics."""
+ """ 7758K repeats on artist / song.  8496k repeats on lyrics."""
+big2_df.drop_duplicates(subset=['lyrics'], inplace = True)
+  """Went from 123287 to 114791"""
 
- big_df.drop_duplicates(subset=['artist_name','song_name'], inplace = True)
- big_df.drop_duplicates(subset=['song_name'], inplace = True)
-  """Went from 152K to 90K"""
-
- big_df.to_csv('big_df.csv', index = False)
-upload_file_to_bucket('music-lyrics','big_df.csv')
+ big2_df.to_csv('big2_df.csv', index = False)
+upload_file_to_bucket('music-lyrics','big2_df.csv')

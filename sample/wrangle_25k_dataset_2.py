@@ -63,6 +63,9 @@ lyrics_25k3_df = lyrics_25k2_df.rename(columns={'artist':'artist_name'})
 """ Lyrics came back...why?"""
 lyrics_25k3_df['artist_name'].replace(('Lyrics'), '', regex = True, inplace = True)
 
+"""Duplicate search: 724 rows overall, 935 by artist and song, lyrics 874 rows."""
+"""I got a 'adding on a slice' warning before with drop_duplicate before.  But it worked this time?"""
+lyrics_25k3_df.drop_duplicates(inplace = True)
 
 
 """New task: Get the year information added to the main 25K frame"""
@@ -76,14 +79,14 @@ year2_df=year2_df.rename(columns={'singer_name':'artist_name'})
 """This list was by artist-albums-years, so artist - years came up with 
 multiple years per artist.  WHen it merged, it merged for each year.  The DF grew
 by a factor of 28."""
+year2_df.drop_duplicates(inplace = True)
+year2_df.drop_duplicates(subset = ['artist_name'], inplace = True)
 
 """Merge the two, to add date to the main csv"""
 Main_25k_df = pd.merge(lyrics_25k3_df, year2_df, on='artist_name')
-"""Populate original_csv column, again? Why?"""
-Main_25k_df['original_csv'] = '25K'
 
 """Upload.  'Touch' a spot in the current dir to use, first."""
-Main_25K_df.to_csv('Main_25k.csv', index= False)
-upload_file_to_bucket('music-demo-lyrics','Main_25k.csv')
+Main_25K_df.to_csv('Main2_25k.csv', index= False)
+upload_file_to_bucket('[TBD]','Main2_25k.csv')
 
 

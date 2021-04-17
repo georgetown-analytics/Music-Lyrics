@@ -1,4 +1,4 @@
-""" Converting decades_tcc to mainframe standard """
+""" Converting labled_lyrics_cleaned.csv to mainframe standard """
 
 import pandas as pd
 import numpy as np
@@ -8,7 +8,7 @@ import io
 import boto3
 
 import s3fs
-fs = s3fs.S3FileSystem(anon=False,key='###########',secret='##############')
+fs = s3fs.S3FileSystem(anon=False,key='####',secret='######')
 
 from dotenv import load_dotenv
 load_dotenv(verbose=True)
@@ -48,11 +48,15 @@ def download_file_from_bucket(bucket_name, s3_key, dst_path):
 ## with open('short_name.csv') as fo:
     ## print(fo.read())
 
-decades_df = pd.read_csv('s3://worm-begin/decades_tcc_ceds_music.csv')
+last_df = pd.read_csv('s3://worm-begin/labeled_lyrics_cleaned.csv')
+"""It's a biggun!!"""
 
-decades2_df = pd.DataFrame((decades_df), columns=['original_csv','artist_name','track_name','link','lyrics','language','genre','release_date'])
-decades2_df['original_csv'] = 'decades_tcc'
-decades3_df = decades2_df.rename(columns={'track_name':'song_name','release_date':'date'})
-"""Convert DF to csv and upload to AWS S3."""
-decades3_df.to_csv('decades3_df.csv', index= False)
-upload_file_to_bucket('music-demo-lyrics','decades3_df.csv')
+"""41 duplicates, in 160K titles"""
+"""Dropped duplicates, completly.  Carter mentioned that dropping a subset like:
+['artist_name','song_name'] can be an issue for data integrity"""
+last2_df = last_df.rename(columns={'artist':'artist_name','seq':'lyrics','song':'song_name'})
+last3_df = pd.DataFrame(last2_df, columns=['original_csv','artist_name','song_name','link','lyrics','language','genre','date'])
+last3_df.drop_duplicates(inplace = True)
+last3_df['original_csv'] = 'big_no_genre'
+last3_df.to_csv('big_no_genre_df.csv', index = False)
+upload_file_to_bucket('music-lyrics','big_no_genre_df.csv')
