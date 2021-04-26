@@ -21,8 +21,9 @@ dependencies:
   - brotlipy=0.7.0=py39h9ed2024_1003
   - brunsli=0.1=h23ab428_0
   - bzip2=1.0.8=h1de35cc_0
-  - ca-certificates=2021.1.19=hecd8cb5_1
+  - ca-certificates=2021.4.13=hecd8cb5_1
   - cachetools=4.2.1=pyhd3eb1b0_0
+  - catalogue=1.0.0=pyhd3eb1b0_0
   - certifi=2020.12.5=py39hecd8cb5_0
   - cffi=1.14.5=py39h2125817_0
   - chardet=3.0.4=py39hecd8cb5_1003
@@ -31,6 +32,8 @@ dependencies:
   - cloudpickle=1.6.0=py_0
   - cryptography=3.4.7=py39h2fd3fbb_0
   - cycler=0.10.0=py39hecd8cb5_0
+  - cymem=2.0.5=py39h23ab428_0
+  - cython-blis=0.7.4=py39h9ed2024_1
   - cytoolz=0.11.0=py39h9ed2024_0
   - dask-core=2021.4.0=pyhd3eb1b0_0
   - decorator=4.4.2=pyhd3eb1b0_0
@@ -59,7 +62,7 @@ dependencies:
   - jmespath=0.10.0=py_0
   - joblib=1.0.1=pyhd3eb1b0_0
   - jpeg=9b=he5867d9_2
-  - jsonschema=3.2.0=pyhd8ed1ab_3
+  - jsonschema=3.0.2=py39hecd8cb5_0
   - jupyter_client=6.1.13=pyhd8ed1ab_0
   - jupyter_core=4.7.1=py39h6e9494a_0
   - jupyterlab_pygments=0.1.2=pyh9f0ad1d_0
@@ -91,6 +94,7 @@ dependencies:
   - matplotlib-base=3.3.4=py39h8b3ea08_0
   - mistune=0.8.4=py39hcbf5805_1003
   - multidict=5.1.0=py39h9ed2024_2
+  - murmurhash=1.0.5=py39h23ab428_0
   - nbclient=0.5.3=pyhd8ed1ab_0
   - nbconvert=6.0.7=py39h6e9494a_3
   - nbformat=5.1.3=pyhd8ed1ab_0
@@ -114,6 +118,8 @@ dependencies:
   - pickleshare=0.7.5=pyhd3eb1b0_1003
   - pillow=8.2.0=py39h5270095_0
   - pip=21.0.1=py39hecd8cb5_0
+  - plac=1.1.0=py39hecd8cb5_0
+  - preshed=3.0.2=py39h23ab428_1
   - prometheus_client=0.10.0=pyhd8ed1ab_0
   - prompt-toolkit=3.0.17=pyh06a4308_0
   - protobuf=3.14.0=py39h23ab428_1
@@ -149,9 +155,12 @@ dependencies:
   - smart_open=5.0.0=pyhd3eb1b0_0
   - snappy=1.1.8=hb1e8313_0
   - soupsieve=2.2.1=pyhd3eb1b0_0
+  - spacy=2.3.5=py39hf7b0b51_0
   - sqlite=3.35.3=hce871da_0
+  - srsly=1.0.5=py39h23ab428_0
   - terminado=0.9.4=py39h6e9494a_0
   - testpath=0.4.4=py_0
+  - thinc=7.4.5=py39h1341a74_0
   - threadpoolctl=2.1.0=pyh5ca1d4c_0
   - tifffile=2021.3.31=pyhd3eb1b0_1
   - tk=8.6.10=hb0a8c7a_0
@@ -163,6 +172,7 @@ dependencies:
   - typing_extensions=3.7.4.3=pyh06a4308_0
   - tzdata=2020f=h52ac0ba_0
   - urllib3=1.26.4=pyhd3eb1b0_0
+  - wasabi=0.8.2=pyhd3eb1b0_0
   - wcwidth=0.2.5=py_0
   - webencodings=0.5.1=py_1
   - wheel=0.36.2=pyhd3eb1b0_0
@@ -180,12 +190,14 @@ dependencies:
     - botocore==1.20.44
     - colorama==0.4.3
     - docutils==0.15.2
+    - feedparser==6.0.2
     - fuzzywuzzy==0.18.0
     - greenlet==1.0.0
     - ipython-sql==0.4.0
     - prettytable==0.7.2
     - python-dotenv==0.17.0
     - pyyaml==5.4.1
+    - sgmllib3k==1.0.0
     - sqlalchemy==1.4.5
     - sqlparse==0.4.1
     - yellowbrick==1.3.post1
