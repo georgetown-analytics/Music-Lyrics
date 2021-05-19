@@ -1,4 +1,4 @@
-"""First look at all the datasets"""
+""" Converting decades_tcc to mainframe standard """
 
 import pandas as pd
 import numpy as np
@@ -8,7 +8,7 @@ import io
 import boto3
 
 import s3fs
-fs = s3fs.S3FileSystem(anon=False,key='#######',secret='#######')
+fs = s3fs.S3FileSystem(anon=False,key='###########',secret='##############')
 
 from dotenv import load_dotenv
 load_dotenv(verbose=True)
@@ -48,14 +48,14 @@ def download_file_from_bucket(bucket_name, s3_key, dst_path):
 ## with open('short_name.csv') as fo:
     ## print(fo.read())
 
-genre_df = pd.read_csv('s3://wrangled-1/merged3_genre_df.csv')
-decades_df = pd.read_csv('s3://wrangled-1/decades_df.csv')
 
-big_df = pd.concat([genre_df, decades_df]).reset_index(drop = True)
 
- """ 7758K repeats on artist / song.  8496k repeats on lyrics."""
-big2_df.drop_duplicates(subset=['lyrics'], inplace = True)
-  """Went from 123287 to 114791"""
+decades2_df = pd.DataFrame((decades_df), columns=['original_csv','artist_name','track_name','link','lyrics','language','genre','release_date'])
+decades2_df['original_csv'] = 'decades_tcc'
+decades3_df = decades2_df.rename(columns={'track_name':'song_name','release_date':'date'})
 
- big2_df.to_csv('big2_df.csv', index = False)
-upload_file_to_bucket('music-lyrics','big2_df.csv')
+""" Checked for duplicates multiple ways, none overall, none by artist/song, none by lyrics.  4600 by song_name."""
+
+"""Convert DF to csv and upload to AWS S3."""
+decades3_df.to_csv('decades_df.csv', index= False)
+upload_file_to_bucket('[TBD]','decades_df.csv')

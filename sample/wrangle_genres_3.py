@@ -78,11 +78,15 @@ genres1_df = pd.DataFrame(genres_df, columns=['Link','Genre'])
 genres2_df = genres1_df.rename(columns={'Link':'artist_name','Genre':'genre'})
 genres2_df[genres2_df.duplicated(keep = False)]
 
+"""Drop duplicates just in artist."""
+genres2_df.drop_duplicates(subset=['artist_name'],inplace=True)
+
 """Reorder lyrics_df columns and rename IAW naming convention. Drop duplicates.
 Drop all but the ENGLISH lyrics."""
 lyrics2_df = lyrics_df.rename(columns={'ALink':'artist_name','SName':'song_name','SLink':'link','Lyric':'lyrics','Idiom':'language'})
 lyrics3_df = (lyrics2_df[lyrics2_df['language']=='ENGLISH'])
 lyrics3_df[lyrics3_df.duplicated(keep = False)]
+lyrics3_df.drop_duplicates(subset=['lyrics'],inplace=True)
 
 """Merge lyrics_df with genre_df to add genre to a single df with the lyrics."""
 
