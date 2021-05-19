@@ -40,7 +40,7 @@ wordnet_lemmatizer = WordNetLemmatizer()
 
 print("Current Time =", datetime.now())
 
-fs = s3fs.S3FileSystem(anon=False,key='AKIASQCX6MEBJBYQZ6OC',secret='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')
+fs = s3fs.S3FileSystem(anon=False,key='###',secret='###')
 genres_df = pd.read_csv('s3://wrangled-1/merged5_genre_df.csv')
 
 print('Download complete.')
