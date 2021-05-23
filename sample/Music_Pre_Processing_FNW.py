@@ -221,11 +221,20 @@ def sentiment_check (text):
 
 genres_df['sent_label'] = genres_df['lyrics'].apply(sentiment_check)
 
+# Two additional cleanups.  Found during further EDA.  Remove tiny genres, remove three
+#songs that have NaN lyrics.
+
+genres_df.drop(genres_df[genres_df['genre']=='Samba'].index, inplace = True)
+genres_df.drop(genres_df[genres_df['genre']=='Sertanejo'].index, inplace = True)
+genres_df.drop(genres_df[genres_df['genre']=='Funk Carioca'].index, inplace = True)
+
+genres_df = genres_df.dropna(axis=0, subset=['lyrics'])
+
 print('Saving to S3.')
 print("Current Time =", datetime.now())
 
 # Save to S3
-genres_df.to_csv('genres_step_3a_df.csv', index= False)
+genres_df.to_csv('genres_step_3b_df.csv', index= False)
 
 from dotenv import load_dotenv
 load_dotenv(verbose=True)
@@ -251,6 +260,6 @@ def upload_file_to_bucket(bucket_name, file_path):
     return s3_url
     print(s3_url)
 
-upload_file_to_bucket('music-lyrics', 'genres_step_3a_df.csv')
+upload_file_to_bucket('music-lyrics', 'genres_step_3b_df.csv')
 
 print("Current Time =", datetime.now())
