@@ -530,3 +530,20 @@ g_df['med_pop_genre_count'] = g_df['med_pop_genre_count'].fillna(0)
 g_df['sml_rock_genre_count'] = g_df['sml_rock_genre_count'].fillna(0)
 g_df['sml_hiphop_genre_count'] = g_df['sml_hiphop_genre_count'].fillna(0)
 g_df['sml_pop_genre_count'] = g_df['sml_pop_genre_count'].fillna(0)
+
+#Fix the issue with sml/med_sent_score coming out of the function as a string.
+g_df['med_sent_score'] = g_df['med_sent_score'].str.replace('[' ,'')
+g_df['med_sent_score'] = g_df['med_sent_score'].str.replace(']' ,'')
+g_df['med_sent_score'] = pd.to_numeric(g_df['med_sent_score'], downcast='float')
+
+g_df['sml_sent_score'] = g_df['sml_sent_score'].str.replace('[' ,'')
+g_df['sml_sent_score'] = g_df['sml_sent_score'].str.replace(']' ,'')
+g_df['sml_sent_score'] = pd.to_numeric(g_df['sml_sent_score'], downcast='float')
+
+#Final reorganization to put target at front and med_genre_count in right spot.
+
+g2_df = pd.DataFrame((g_df), columns=['genre','song_name','lyrics','full_word_count','full_character_count','full_avg_word_length',
+    'med_lyrics','med_word_count','med_character_count','med_avg_word_length','med_content_affin','med_sent_label','med_sent_score',
+    'med_vector','med_rock_genre_count','med_hiphop_genre_count','med_pop_genre_count','med_genre_count','sml_lyrics',
+    'sml_word_count','sml_character_count','sml_avg_word_length','sml_content_affin','sml_sent_label','sml_sent_score',
+    'sml_vector','sml_rock_genre_count','sml_hiphop_genre_count','sml_pop_genre_count','sml_genre_count'])
